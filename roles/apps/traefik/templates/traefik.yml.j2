@@ -15,7 +15,7 @@ certificatesResolvers:
   letsencrypt:
     acme:
       email: louis@le-brun.tech
-      storage: acme.json
+      storage: /certs/acme.json
       httpChallenge:
         entryPoint: web
 
@@ -24,4 +24,4 @@ providers:
     exposedByDefault: false
 
 api:
-  insecure: false
+  dashboard: true
