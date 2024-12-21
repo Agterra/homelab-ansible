@@ -1,0 +1,11 @@
+---
+app_folder: "{{ root_app_folder }}/traefik"
+config_folder: "{{ app_folder }}/config"
+
+directories: 
+  - "{{ app_folder }}"
+  - "{{ config_folder }}"
+
+templates:
+  - { template: "docker-compose.yml.j2", dest: "{{ app_folder }}/docker-compose.yml" }
+  - { template: "traefik.yml.j2", dest: "{{ config_folder }}/traefik.yml" }
