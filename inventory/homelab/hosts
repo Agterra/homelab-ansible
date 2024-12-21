@@ -1,0 +1,2 @@
+[homelab]
+le-brun.tech ansible_user=louis ansible_port=50022

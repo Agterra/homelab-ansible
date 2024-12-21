@@ -1,0 +1,5 @@
+---
+- name: Install Requirements
+  hosts: homelab
+  roles:
+    - { role: dependencies}

@@ -1,0 +1,59 @@
+---
+- name: Update System
+  become: true
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+
+- name: Install pkgx and package
+  block:
+    - name: Check pkgx install
+      ansible.builtin.shell: which pkgx
+      changed_when: false
+  rescue:
+    - name: Install pkgx
+      become: true
+      ansible.builtin.shell: curl -fsS https://pkgx.sh | sh
+
+    - name: Install libs with pkgx
+      ansible.builtin.shell:
+        cmd: |
+          pkgx install python && python --version
+
+- name: Install and setup Docker
+  block:
+    - name: Check docker install
+      ansible.builtin.shell: which docker 
+      changed_when: false
+  rescue:
+    - name: Install dnf package
+      become: true
+      ansible.builtin.dnf:
+        name: 
+          - dnf-plugins-core
+        state: present
+
+    - name: Enable docker repo
+      become: true
+      ansible.builtin.uri:
+        url: https://download.docker.com/linux/fedora/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+        force: true
+        mode: "u=rw,g=r,o=r"
+
+    - name: Install Docker CE
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+    
+    - name: Enable docker service
+      ansible.builtin.systemd_service:
+        name: docker
+        state: started
+        enabled: true
