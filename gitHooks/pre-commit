@@ -1,4 +1,4 @@
 #!/usr/bin/sh
 set -e
 # Making sure secrets are not getting away !
-make encrypt && git commit -m "encrypt" || true
+make encrypt && git add . && git commit -m "encrypt" || true
