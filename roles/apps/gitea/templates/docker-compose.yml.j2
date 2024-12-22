@@ -23,6 +23,7 @@ services:
       - gitea_db_passwd
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
       - "traefik.http.routers.gitea.rule=Host(`git.{{ domain }}`)"
       - "traefik.http.routers.gitea.tls=true"
       - "traefik.http.routers.gitea.tls.certresolver=letsencrypt"
@@ -59,6 +60,7 @@ networks:
   traefik:
     external: true
   gitea:
+    name: gitea
 
 secrets:
   gitea_db_passwd:
