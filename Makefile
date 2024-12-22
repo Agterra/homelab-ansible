@@ -1,5 +1,8 @@
 TAGS=""
 
+init:
+	git config core.hooksPath gitHooks
+
 encrypt:
 	ansible-vault encrypt --vault-password-file .passwords/homelab/password inventory/homelab/group_vars/all/secrets.yml
 
