@@ -14,7 +14,7 @@ services:
     volumes:
       - database:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: ${PG_PASS:?database password required}
+      POSTGRES_PASSWORD: "{{ authentik_pg_pass }}"
       POSTGRES_USER: authentik
       POSTGRES_DB: authentik
     labels:

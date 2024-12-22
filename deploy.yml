@@ -3,6 +3,6 @@
   hosts: homelab
   become: true
   roles:
-    - { role: apps/traefik, tags: [never, traefik] } 
-    - { role: apps/minio, tags: [never, minio] } 
-    - { role: apps/authentik, tags: [never, authentik] } 
+    - { role: apps/traefik, tags: [never, all, traefik] } 
+    - { role: apps/minio, tags: [never, all, minio] } 
+    - { role: apps/authentik, tags: [never, all, authentik] } 
