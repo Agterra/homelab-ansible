@@ -1,0 +1,10 @@
+---
+app_folder: "{{ root_app_folder }}/gitea"
+
+directories: 
+  - "{{ app_folder }}"
+
+templates:
+  - { template: "docker-compose.yml.j2", dest: "{{ app_folder }}/docker-compose.yml" }
+  - { template: "db_passwd.j2", dest: "{{ app_folder }}/.secrets.db_passwd" }
+  - { template: "db_root_passwd.j2", dest: "{{ app_folder }}/.secrets.db_root_passwd" }

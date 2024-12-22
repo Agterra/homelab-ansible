@@ -1,0 +1,67 @@
+services:
+  gitea:
+    image: gitea/gitea:latest-rootless
+    restart: unless-stopped
+    container_name: gitea
+    networks:
+      - traefik
+      - gitea
+    environment:
+      GITEA__security__INSTALL_LOCK: true
+      GITEA__database__DB_TYPE: mysql
+      GITEA__database__HOST: database:3306
+      GITEA__database__NAME: homelab
+      GITEA__database__USER: admin
+      GITEA__database__PASSWD: /run/secrets/gitea_db_passwd
+      GITEA__server__ROOT_URL: "https://git.{{ domain }}"
+    volumes:
+      - data:/var/lib/gitea
+      - config:/etc/gitea
+    depends_on:
+      - database
+    secrets:
+      - gitea_db_passwd
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gitea.rule=Host(`git.{{ domain }}`)"
+      - "traefik.http.routers.gitea.tls=true"
+      - "traefik.http.routers.gitea.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.gitea.entrypoints=websecure"
+      - "traefik.http.services.gitea.loadbalancer.server.port=3000"
+      - "traefik.tcp.routers.gitea-ssh.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.gitea-ssh.entrypoints=ssh"
+      - "traefik.tcp.services.gitea-ssh.loadbalancer.server.port=2222"
+  database:
+    image: mysql:8
+    restart: unless-stopped
+    container_name: gitea-db
+    networks:
+      - gitea
+    environment:
+      MYSQL_ROOT_PASSWORD: /run/secrets/gitea_db_root_passwd
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: /run/secrets/gitea_db_passwd
+      MYSQL_DATABASE: homelab
+    secrets:
+      - gitea_db_root_passwd
+      - gitea_db_passwd
+    volumes:
+      - database:/var/lib/mysql
+    labels:
+      - "traefik.enable=false"
+
+volumes:
+  data:
+  config:
+  database:
+
+networks:
+  traefik:
+    external: true
+  gitea:
+
+secrets:
+  gitea_db_passwd:
+    file: ./.secrets.db_passwd
+  gitea_db_root_passwd:
+    file: ./.secrets.db_root_passwd
