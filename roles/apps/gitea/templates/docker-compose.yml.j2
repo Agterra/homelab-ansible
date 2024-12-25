@@ -8,6 +8,7 @@ services:
       - gitea
     environment:
       GITEA__security__INSTALL_LOCK: true
+      GITEA__service__DISABLE_REGISTRATION: true
       GITEA__database__DB_TYPE: mysql
       GITEA__database__HOST: database:3306
       GITEA__database__NAME: homelab
