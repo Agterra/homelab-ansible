@@ -1,0 +1,68 @@
+services:
+  nextcloud:
+    image: nextcloud
+    restart: unless-stopped
+    container_name: nextcloud
+    networks:
+      - traefik
+      - nextcloud
+    volumes:
+      - nextcloud:/var/www/html
+    environment:
+      - MYSQL_PASSWORD=/run/secrets/db_passwd
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=database
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.nextcloud.rule=Host(`drive.{{ domain }}`)"
+      - "traefik.http.routers.nextcloud.tls=true"
+      - "traefik.http.routers.nextcloud.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.nextcloud.entrypoints=websecure"
+      - "traefik.http.services.nextcloud.loadbalancer.server.port=80"
+    secrets:
+      - db_passwd
+
+  database:
+    image: mariadb:10.6
+    restart: unless-stopped
+    container_name: nextcloud-db
+    networks:
+      - nextcloud
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    volumes:
+      - database:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=/run/secrets/db_root_passwd
+      - MYSQL_PASSWORD=/run/secrets/db_passwd
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+    secrets:
+      - db_root_passwd
+      - db_passwd
+
+networks:
+  nextcloud:
+  traefik:
+    external: true
+
+secrets:
+  db_passwd:
+    file: ./.secrets.db_passwd
+  db_root_passwd:
+    file: ./.secrets.db_root_passwd
+
+volumes:
+  nextcloud:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '{{ app_storage }}'
+  database:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '{{ database_storage }}'

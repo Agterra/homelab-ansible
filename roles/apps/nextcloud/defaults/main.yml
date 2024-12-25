@@ -1,0 +1,15 @@
+---
+app_folder: "{{ root_app_folder }}/nextcloud"
+storage_folder: "{{ zfs_pool }}/nextcloud"
+app_storage: "{{ storage_folder }}/app"
+database_storage: "{{ storage_folder }}/database"
+
+directories: 
+  - "{{ app_folder }}"
+  - "{{ app_storage }}"
+  - "{{ database_storage }}"
+
+templates:
+  - { template: "docker-compose.yml.j2", dest: "{{ app_folder }}/docker-compose.yml" }
+  - { template: "db_passwd.j2", dest: "{{ app_folder }}/.secrets.db_passwd" }
+  - { template: "db_root_passwd.j2", dest: "{{ app_folder }}/.secrets.db_root_passwd" }
