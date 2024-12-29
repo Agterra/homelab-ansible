@@ -1,6 +1,4 @@
 ---
-app_folder: "{{ root_app_folder }}/minio"
-
 directories: 
   - "{{ app_folder }}"
 

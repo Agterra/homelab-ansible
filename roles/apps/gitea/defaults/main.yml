@@ -1,6 +1,4 @@
 ---
-app_folder: "{{ root_app_folder }}/gitea"
-
 directories: 
   - "{{ app_folder }}"
 

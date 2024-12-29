@@ -1,0 +1,14 @@
+---
+- name: "{{ app_name }} | Create directories"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop: "{{ directories }}"
+
+- name: "{{ app_name }} | Copy templates"
+  ansible.builtin.template:
+    src: "{{ item.template }}"
+    dest: "{{ item.dest }}"
+    mode: '0755'
+  loop: "{{ templates }}"

@@ -14,3 +14,6 @@ install:
 
 deploy:
 	ansible-playbook -i inventory/homelab/hosts --vault-password-file .passwords/homelab/password deploy.yml --tags $(TAGS) -K
+
+list:
+	ansible-playbook -i inventory/homelab/hosts --vault-password-file .passwords/homelab/password tools.yml --tags docker -K

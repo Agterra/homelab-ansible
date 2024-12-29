@@ -1,19 +1,6 @@
 ---
-- name: Create directories
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: directory
-    mode: '0755'
-  loop: "{{ directories }}"
-
-- name: Copy templates
-  ansible.builtin.template:
-    src: "{{ item.template }}"
-    dest: "{{ item.dest }}"
-    mode: '0755'
-  loop: "{{ templates }}"
-
-- name: Start app
-  community.docker.docker_compose_v2:
-    project_src: "{{ app_folder }}"
-    recreate: "always"
+- name: Running docker tasks
+  ansible.builtin.import_role: 
+    name: apps/docker
+  vars:
+    app_name: "traefik"

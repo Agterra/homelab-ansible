@@ -1,0 +1,7 @@
+---
+- name: "{{ app_name }} | Create directory"
+  ansible.builtin.import_tasks: directory.yml
+
+- name: "{{ app_name }} | Create and start"
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_folder }}"

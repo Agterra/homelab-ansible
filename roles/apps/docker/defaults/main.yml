@@ -1,4 +1,6 @@
 ---
+app_folder: "/apps/{{ app_name }}"
+
 directories: 
   - "{{ app_folder }}"
 

@@ -1,5 +1,5 @@
 ---
-app_folder: "{{ root_app_folder }}/nextcloud"
+app_folder: "/{{ role_name }}"
 storage_folder: "{{ zfs_pool }}/nextcloud"
 app_storage: "{{ storage_folder }}/app"
 database_storage: "{{ storage_folder }}/database"

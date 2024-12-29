@@ -1,2 +1,2 @@
 [homelab]
-le-brun.tech ansible_user=louis ansible_port=50022 ansible_python_interpreter=/usr/bin/python3.13
+agterra.fr ansible_user=louis ansible_port=50022 ansible_python_interpreter=/usr/bin/python3.13

@@ -1,0 +1,6 @@
+---
+- name: Tools
+  hosts: homelab
+  become: true
+  roles:
+    - { role: tools/docker, tags: [never, docker] }

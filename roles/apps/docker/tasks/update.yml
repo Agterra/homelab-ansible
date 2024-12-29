@@ -1,0 +1,12 @@
+---
+- name: "{{ app_name }} | Delete containers"
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_folder }}"
+    state: "absent"
+
+- name: "{{ app_name }} | Update directory"
+  ansible.builtin.import_tasks: directory.yml
+
+- name: "{{ app_name }} | Create and start"
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_folder }}"

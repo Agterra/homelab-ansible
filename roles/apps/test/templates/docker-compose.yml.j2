@@ -1,0 +1,16 @@
+services:
+  test:
+    image: 'traefik/whoami'
+    container_name: test-trois
+    networks:
+      - traefik
+    restart: unless-stopped
+    volumes:
+      - test-data:/etc
+
+volumes:
+  test-data:
+
+networks:
+  traefik:
+    external: true

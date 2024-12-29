@@ -1,0 +1,24 @@
+---
+- name: "{{ app_name }} | Create"
+  ansible.builtin.import_tasks: create.yml
+  when: "'create' in ansible_run_tags"
+
+- name: "{{ app_name }} | Update"
+  ansible.builtin.import_tasks: update.yml
+  when: "'update' in ansible_run_tags"
+
+- name: "{{ app_name }} | Delete app and volume"
+  ansible.builtin.import_tasks: delete-all.yml
+  when: "'delete-all' in ansible_run_tags"
+
+- name: "{{ app_name }} | Restart app"
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_folder }}"
+    state: "restarted"
+  when: "'restart' in ansible_run_tags"
+
+- name: "{{ app_name }} | Stop"
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_folder }}"
+    state: "stopped"
+  when: "'stop' in ansible_run_tags"

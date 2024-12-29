@@ -1,0 +1,12 @@
+---
+- name: Get running docker containers
+  community.docker.docker_host_info:
+    containers: true
+  register: result
+
+- name: Show running docker containers
+  ansible.builtin.debug:
+    msg: "{{ item['Status'] }}"
+  loop: "{{ result.containers }}"
+  loop_control:
+    label: "{{ item['Names'][0] }}"

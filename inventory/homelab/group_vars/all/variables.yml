@@ -1,3 +1,2 @@
-root_app_folder: /apps
-domain: agterra.fr
+domain: TO_SET_IN_ENV
 zfs_pool: /mainpool

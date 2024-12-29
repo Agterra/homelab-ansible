@@ -1,5 +1,5 @@
 ---
-app_folder: "{{ root_app_folder }}/traefik"
+app_folder: "/{{ role_name }}"
 config_folder: "{{ app_folder }}/config"
 
 directories: 
