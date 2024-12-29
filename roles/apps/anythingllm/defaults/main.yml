@@ -1,0 +1,7 @@
+---
+directories: 
+  - "{{ app_folder }}"
+
+templates:
+  - { template: "docker-compose.yml.j2", dest: "{{ app_folder }}/docker-compose.yml" }
+  - { template: ".env.j2", dest: "{{ app_folder }}/.env" }

@@ -1,0 +1,29 @@
+services:
+  test:
+    image: 'traefik/whoami'
+    container_name: mon-app
+    networks:
+      - traefik
+    restart: unless-stopped
+    volumes:
+      - storage:/etc
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.gitea.rule=Host(`app.{{ domain }}`)"
+      - "traefik.http.routers.gitea.tls=true"
+      - "traefik.http.routers.gitea.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.gitea.entrypoints=websecure"
+      - "traefik.http.services.gitea.loadbalancer.server.port=3000"
+
+volumes:
+  storage:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '{{ app_storage }}'
+
+networks:
+  traefik:
+    external: true

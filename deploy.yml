@@ -9,4 +9,6 @@
     - { role: apps/gitea, tags: [never, all, gitea] }
     - { role: apps/nextcloud, tags: [never, all, nextcloud] }
     - { role: apps/pihole, tags: [never, all, pihole] }
+    - { role: apps/ollama, tags: [never, all, llm] }
+    - { role: apps/anythingllm, tags: [never, all, llm] }
     - { role: apps/test, tags: [never, test] }

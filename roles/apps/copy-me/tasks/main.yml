@@ -3,4 +3,4 @@
   ansible.builtin.import_role: 
     name: apps/docker
   vars:
-    app_name: "test"
+    app_name: TO_SET
