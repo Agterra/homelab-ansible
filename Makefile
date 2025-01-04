@@ -1,13 +1,14 @@
 TAGS=""
 
 init:
+	mkdir .passwords
 	git config core.hooksPath gitHooks
 
 encrypt:
-	ansible-vault encrypt --vault-password-file .passwords/homelab/password inventory/homelab/group_vars/all/secrets.yml
+	ansible-vault encrypt --vault-password-file .passwords/your_server/password inventory/your_server/group_vars/all/secrets.yml
 
 decrypt:
-	ansible-vault decrypt --vault-password-file .passwords/homelab/password inventory/homelab/group_vars/all/secrets.yml
+	ansible-vault decrypt --vault-password-file .passwords/your_server/password inventory/your_server/group_vars/all/secrets.yml
 
 install:
 	ansible-playbook -i inventory/homelab/hosts \

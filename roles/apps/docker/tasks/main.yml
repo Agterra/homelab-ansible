@@ -8,8 +8,8 @@
   when: "'update' in ansible_run_tags"
 
 - name: "{{ app_name }} | Delete app and volume"
-  ansible.builtin.import_tasks: delete-all.yml
-  when: "'delete-all' in ansible_run_tags"
+  ansible.builtin.import_tasks: delete.yml
+  when: "'delete' in ansible_run_tags"
 
 - name: "{{ app_name }} | Restart app"
   community.docker.docker_compose_v2:
