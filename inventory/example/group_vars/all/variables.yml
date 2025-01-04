@@ -1,0 +1,3 @@
+domain: #To set in extra vars when calling ansible-playbook
+zfs_pool:
+apps_location:

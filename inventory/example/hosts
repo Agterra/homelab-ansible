@@ -1,0 +1,2 @@
+[example]
+127.0.0.1 ansible_python_interpreter=/usr/bin/python3.13
