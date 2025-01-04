@@ -1,5 +1,6 @@
 ---
-app_folder: "/{{ role_name }}"
+app_name: "pihole"
+app_folder: "{{ apps_location}}/{{ app_name }}"
 config_folder: "{{ app_folder }}/config"
 storage_folder: "{{ zfs_pool }}/pihole"
 app_storage: "{{ storage_folder }}/app"

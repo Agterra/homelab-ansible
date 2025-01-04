@@ -1,11 +1,11 @@
 ---
-- name: "{{ app_name }} | Delete app and volume"
+- name: "{{ app_name }} | Delete app and volume from {{ app_folder }}"
   community.docker.docker_compose_v2:
     project_src: "{{ app_folder }}"
     state: "absent"
     remove_volumes: true
 
-- name: "{{ app_name }} | Delete directory"
+- name: "{{ app_name }} | Delete directory {{ app_folder }}"
   ansible.builtin.file:
     path: "{{ app_folder }}"
     state: absent

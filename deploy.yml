@@ -8,7 +8,7 @@
     - { role: apps/authentik, tags: [never, all, authentik] }
     - { role: apps/gitea, tags: [never, all, gitea] }
     - { role: apps/nextcloud, tags: [never, all, nextcloud] }
-    - { role: apps/pihole, tags: [never, all, pihole] }
-    - { role: apps/ollama, tags: [never, all, llm] }
-    - { role: apps/anythingllm, tags: [never, all, llm] }
-    - { role: apps/test, tags: [never, test] }
+    - { role: apps/pihole, tags: [never, pihole] }
+    - { role: apps/ollama, tags: [never, llm] }
+    - { role: apps/anythingllm, tags: [never, llm] }
+    - { role: apps/copy-me, tags: [never, template] }

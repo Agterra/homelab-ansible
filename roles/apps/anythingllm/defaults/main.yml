@@ -1,5 +1,8 @@
 ---
-directories: 
+app_name: "anythingllm"
+app_folder: "{{ apps_location }}/{{ app_name }}"
+
+directories:
   - "{{ app_folder }}"
 
 templates:
