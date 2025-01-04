@@ -1,3 +1,0 @@
-domain: TO_SET_IN_ENV
-zfs_pool: /mainpool
-apps_location: /apps
