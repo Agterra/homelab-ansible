@@ -2,6 +2,9 @@
 
 This project aims to facilitate the deployment and maintenance of applications on an home server or others.
 
+# Pre-requisite
+- You already have a zfs pool on the server
+
 # Installation
 - Run `make init`, it will create a `.passwords` folder at the root of your project, as well as initializing the githooks
 - Inside the inventory folder, copy the `example` and adapt it to your convenience
