@@ -3,11 +3,12 @@
   hosts: homelab
   become: true
   roles:
-    - { role: apps/traefik, tags: [never, all, traefik] }
-    - { role: apps/minio, tags: [never, all, minio] }
-    - { role: apps/authentik, tags: [never, all, authentik] }
-    - { role: apps/gitea, tags: [never, all, gitea] }
-    - { role: apps/nextcloud, tags: [never, all, nextcloud] }
+    - { role: apps/traefik, tags: [never, traefik] }
+    - { role: apps/minio, tags: [never, minio] }
+    - { role: apps/authentik, tags: [never, authentik] }
+    - { role: apps/gitea, tags: [never, gitea] }
+    - { role: apps/nextcloud, tags: [never, nextcloud] }
+    - { role: apps/registry, tags: [never, registry] }
     - { role: apps/pihole, tags: [never, pihole] }
     - { role: apps/ollama, tags: [never, llm] }
     - { role: apps/anythingllm, tags: [never, llm] }

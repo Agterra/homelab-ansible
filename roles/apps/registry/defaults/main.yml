@@ -1,6 +1,6 @@
 ---
-app_name: "TO_SET"
-app_port: 8080
+app_name: "registry"
+app_port: 5000
 app_folder: "{{ apps_location }}/{{ app_name }}"
 storage_folder: "{{ zfs_pool }}/{{ app_name }}"
 app_storage: "{{ storage_folder }}/data"

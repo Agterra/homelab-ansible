@@ -1,12 +1,14 @@
 services:
   test:
-    image: 'traefik/whoami'
+    image: registry:2
     container_name: {{ app_name }}
     networks:
       - traefik
     restart: unless-stopped
     volumes:
-      - storage:/etc
+      - storage:/data
+    environment:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
