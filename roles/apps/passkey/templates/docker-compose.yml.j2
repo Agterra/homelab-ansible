@@ -1,0 +1,62 @@
+services:
+  passkey-migrate:
+    image: registry.agterra.fr/passkey-server:latest
+    networks:
+      - passkey
+    volumes:
+      - type: bind
+        source: ./config.yaml
+        target: /etc/config/config.yaml
+    command: --config /etc/config/config.yaml migrate up
+    restart: on-failure
+    depends_on:
+      postgresd:
+        condition: service_healthy
+  passkey-server:
+    image: registry.agterra.fr/passkey-server:latest
+    networks:
+      - traefik
+      - passkey
+    volumes:
+      - type: bind
+        source: ./config.yaml
+        target: /etc/config/config.yaml
+    command: --config /etc/config/config.yaml serve all
+    restart: unless-stopped
+    depends_on:
+      passkey-migrate:
+        condition: service_completed_successfully
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.{{ app_name }}.rule=Host(`{{ app_name }}.{{ domain }}`)"
+      - "traefik.http.routers.{{ app_name }}.tls=true"
+      - "traefik.http.routers.{{ app_name }}.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.{{ app_name }}.service={{ app_name }}"
+      - "traefik.http.routers.{{ app_name }}.entrypoints=websecure"
+      - "traefik.http.services.{{ app_name }}.loadbalancer.server.port={{ app_port }}"
+      - "traefik.http.routers.{{ app_name }}-admin.rule=Host(`admin-{{ app_name }}.{{ domain }}`)"
+      - "traefik.http.routers.{{ app_name }}-admin.tls=true"
+      - "traefik.http.routers.{{ app_name }}-admin.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.{{ app_name }}-admin.entrypoints=websecure"
+      - "traefik.http.routers.{{ app_name }}-admin.service={{ app_name }}-admin"
+      - "traefik.http.services.{{ app_name }}-admin.loadbalancer.server.port=8001"
+  postgresd:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=hanko
+      - POSTGRES_PASSWORD=hanko
+      - POSTGRES_DB=passkey
+    networks:
+      - passkey
+    healthcheck:
+      test: pg_isready -U hanko -d passkey
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+networks:
+  traefik:
+    external: true
+  passkey:

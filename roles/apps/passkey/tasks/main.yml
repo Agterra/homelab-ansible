@@ -1,0 +1,4 @@
+---
+- name: Running docker tasks
+  ansible.builtin.import_role: 
+    name: apps/docker

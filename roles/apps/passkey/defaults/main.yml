@@ -1,0 +1,11 @@
+---
+app_name: "passkey"
+app_port: 8000
+app_folder: "{{ apps_location }}/{{ app_name }}"
+
+directories: 
+  - "{{ app_folder }}"
+
+templates:
+  - { template: "docker-compose.yml.j2", dest: "{{ app_folder }}/docker-compose.yml" }
+  - { template: "config.yaml.j2", dest: "{{ app_folder }}/config.yaml" }
