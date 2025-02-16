@@ -1,0 +1,14 @@
+---
+app_name: "commander-fest"
+app_port: 3000
+app_folder: "{{ apps_location }}/{{ app_name }}"
+storage_folder: "{{ zfs_pool }}/{{ app_name }}"
+app_storage: "{{ storage_folder }}/data"
+app_image: "registry.agterra.fr/gscmdrfest:latest"
+
+directories: 
+  - "{{ app_folder }}"
+  - "{{ app_storage }}"
+
+templates:
+  - { template: "docker-compose.yml.j2", dest: "{{ app_folder }}/docker-compose.yml" }

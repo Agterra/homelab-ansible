@@ -1,0 +1,19 @@
+services:
+  test:
+    image: {{ app_image }}
+    container_name: {{ app_name }}
+    networks:
+      - traefik
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.{{ app_name }}.rule=Host(`{{ app_name }}.{{ domain }}`)"
+      - "traefik.http.routers.{{ app_name }}.tls=true"
+      - "traefik.http.routers.{{ app_name }}.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.{{ app_name }}.entrypoints=websecure"
+      - "traefik.http.services.{{ app_name }}.loadbalancer.server.port={{ app_port }}"
+
+networks:
+  traefik:
+    external: true

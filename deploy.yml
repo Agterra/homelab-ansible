@@ -12,5 +12,6 @@
     - { role: apps/pihole, tags: [never, pihole] }
     - { role: apps/ollama, tags: [never, llm] }
     - { role: apps/anythingllm, tags: [never, llm] }
-    - { role: apps/passkey, tags: [never, passkey, template] }
+    - { role: apps/passkey, tags: [never, passkey] }
+    - { role: apps/commanderfest, tags: [never, cmdrfest] }
     - { role: apps/copy-me, tags: [never, template] }
