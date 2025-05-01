@@ -15,21 +15,21 @@
       become: true
       ansible.builtin.shell: curl -fsS https://pkgx.sh | sh
 
-    - name: Install libs with pkgx
+    - name: Install libs with pkgm
       ansible.builtin.shell:
         cmd: |
-          pkgx install python && python --version
+          pkgm install python && python --version
 
 - name: Install and setup Docker
   block:
     - name: Check docker install
-      ansible.builtin.shell: which docker 
+      ansible.builtin.shell: which docker
       changed_when: false
   rescue:
     - name: Install dnf package
       become: true
       ansible.builtin.dnf:
-        name: 
+        name:
           - dnf-plugins-core
         state: present
 
@@ -51,7 +51,7 @@
           - docker-buildx-plugin
           - docker-compose-plugin
         state: present
-    
+
     - name: Enable docker service
       ansible.builtin.systemd_service:
         name: docker
